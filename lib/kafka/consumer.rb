@@ -238,9 +238,9 @@ module Kafka
 
             # Instrument an event immediately so that subscribers don't have to wait until
             # the block is completed.
-            @instrumenter.instrument("start_process_message.consumer", notification)
+            @instrumenter.instrument("start_process_message.consumer", **notification)
 
-            @instrumenter.instrument("process_message.consumer", notification) do
+            @instrumenter.instrument("process_message.consumer", **notification) do
               begin
                 yield message unless message.is_control_record
                 @current_offsets[message.topic][message.partition] = message.offset
